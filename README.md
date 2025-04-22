@@ -63,10 +63,9 @@ Our team developed **SmartClass**, an intelligent platform that:
 
 | Name             | Student ID     | Role                       |
 |------------------|----------------|----------------------------|
-| Paijo            | 1234567890     | AI Engineer & Backend Dev |
-| Siti Nurhaliza   | 0987654321     | Frontend Dev & UI/UX      |
-| Budi Santoso     | 1122334455     | Data Analyst               |
-| Dewi Anggraini   | 5566778899     | Documentation & QA         |
+| Vana Prasta S.N.A| 3323600002     | Machine Learning Engineer  |
+| M. Krisnanda V.S.| 3323600010     | Data Engineer              |
+| Alvinova R.D     | 3323600025     | AI Engineer                |
 
 ---
 
