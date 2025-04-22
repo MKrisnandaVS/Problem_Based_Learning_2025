@@ -4,7 +4,7 @@
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 ![MadeWith](https://img.shields.io/badge/Made%20with-Python%20%7C%20AI%20%7C%20Firebase-orange)
 
-> _"ما اسْتَطَعْتُمْ until Allah stops you."_
+> _"Winners never quit, and quitters never win - Vince Lombardi"_
 
 ---
 
