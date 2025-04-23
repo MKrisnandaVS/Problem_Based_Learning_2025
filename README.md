@@ -80,11 +80,10 @@ Our team developed **SmartClass**, an intelligent platform that:
 ## 📁 Project Structure
 
 ```bash
-📁 SmartClass/
+📁 Problem_Based_Learning/
 ├── 📁 src/              # Source code
 │   ├── main.py
 │   └── model_training.ipynb
 ├── 📁 assets/           # Images and media
 ├── 📁 docs/             # Full documentation
-├── dev.nix             # IDX environment config
 └── README.md           # This file!
