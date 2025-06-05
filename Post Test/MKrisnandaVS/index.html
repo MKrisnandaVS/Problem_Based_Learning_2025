@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Cybersecurity Threats Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+        cursor: url('https://cdn-icons-png.flaticon.com/32/7714/7714654.png'), auto;
+      }
+      body {
+        transition: background-color 0.3s ease;
+      }
+      select:hover, table:hover {
+        transition: transform 0.2s;
+        transform: scale(1.01);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+  </head>
+  <body class="bg-gradient-to-tr from-gray-100 to-blue-100 text-gray-800">
+    <div class="container mx-auto px-4 py-8 animate-fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 animate-pulse">
+        🌐 Global Cybersecurity Threats
+      </h2>
+
+      <div class="flex flex-wrap gap-4 justify-center items-center mb-6">
+        <label for="yearFilter" class="font-semibold">Year:</label>
+        <select id="yearFilter" class="px-4 py-2 rounded border border-gray-300 shadow hover:shadow-lg">
+          <option value="All">All</option>
+        </select>
+
+        <label for="countryFilter" class="font-semibold">Country:</label>
+        <select id="countryFilter" class="px-4 py-2 rounded border border-gray-300 shadow hover:shadow-lg">
+          <option value="All">All</option>
+        </select>
+
+        <label for="attackFilter" class="font-semibold">Attack Type:</label>
+        <select id="attackFilter" class="px-4 py-2 rounded border border-gray-300 shadow hover:shadow-lg">
+          <option value="All">All</option>
+        </select>
+
+        <label for="industryFilter" class="font-semibold">Target Industry:</label>
+        <select id="industryFilter" class="px-4 py-2 rounded border border-gray-300 shadow hover:shadow-lg">
+          <option value="All">All</option>
+        </select>
+      </div>
+
+      <div class="overflow-x-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.01]">
+        <table
+          id="cyberTable"
+          class="display w-full text-sm text-left text-gray-700"
+        >
+          <thead class="bg-blue-600 text-white">
+            <tr>
+              <th class="px-6 py-3">Country</th>
+              <th class="px-6 py-3">Year</th>
+              <th class="px-6 py-3">Attack Type</th>
+              <th class="px-6 py-3">Target Industry</th>
+              <th class="px-6 py-3">Financial Loss ($M)</th>
+              <th class="px-6 py-3">Affected Users</th>
+              <th class="px-6 py-3">Attack Source</th>
+              <th class="px-6 py-3">Vulnerability</th>
+              <th class="px-6 py-3">Defense Used</th>
+              <th class="px-6 py-3">Resolution Time (hrs)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="chart-container" class="mt-10"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

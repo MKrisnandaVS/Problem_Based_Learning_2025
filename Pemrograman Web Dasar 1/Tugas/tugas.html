@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GDP Regional Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Gross Domestic Product (Current US$ in Trillions)</h2>
+      <div class="controls">
+        <h3>Select Regions to Include:</h3>
+        <div class="checkbox-group" id="regionControls"></div>
+      </div>
+      <div class="chart-container">
+        <canvas id="gdpChart"></canvas>
+      </div>
+    </div>
+
+    <script>
+      // Data GDP per region
+      const gdpData = {
+        years: [1960, 1970, 1980, 1990, 2000, 2010],
+        regions: {
+          "East Asia & Pacific": [1, 2, 4, 8, 15, 20],
+          "Europe & Central Asia": [2, 3, 6, 10, 18, 22],
+          "Latin America & Caribbean": [0.5, 1, 2, 3, 4, 5],
+          "Middle East & North Africa": [0.3, 0.8, 1.5, 2, 2.5, 3],
+          "South Asia": [0.2, 0.5, 1, 1.5, 2, 2.5],
+          "Sub-Saharan Africa": [0.1, 0.3, 0.8, 1, 1.2, 1.5],
+        },
+      };
+
+      // Colors for each region
+      const regionColors = {
+        "East Asia & Pacific": "#FF6384",
+        "Europe & Central Asia": "#36A2EB",
+        "Latin America & Caribbean": "#4BC0C0",
+        "Middle East & North Africa": "#FFCE56",
+        "South Asia": "#9966FF",
+        "Sub-Saharan Africa": "#FF9F40",
+      };
+
+      // Create checkboxes for each region
+      const regionControls = document.getElementById("regionControls");
+      Object.keys(gdpData.regions).forEach((region) => {
+        const div = document.createElement("div");
+        div.className = "checkbox-item";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = region;
+        checkbox.checked = true;
+        checkbox.addEventListener("change", updateChart);
+
+        const label = document.createElement("label");
+        label.htmlFor = region;
+        label.textContent = region;
+        label.style.color = regionColors[region];
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        regionControls.appendChild(div);
+      });
+
+      // Initialize chart
+      const ctx = document.getElementById("gdpChart").getContext("2d");
+      let chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: gdpData.years,
+          datasets: [],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "GDP (Trillions US$)",
+              },
+            },
+            x: {
+              title: {
+                display: true,
+                text: "Year",
+              },
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "Regional GDP Trends (1960-2010)",
+            },
+            legend: {
+              position: "right",
+            },
+          },
+        },
+      });
+
+      function updateChart() {
+        const selectedRegions = Object.keys(gdpData.regions).filter(
+          (region) => document.getElementById(region).checked,
+        );
+
+        chart.data.datasets = selectedRegions.map((region) => ({
+          label: region,
+          data: gdpData.regions[region],
+          borderColor: regionColors[region],
+          backgroundColor: regionColors[region],
+          fill: false,
+          tension: 0.4,
+        }));
+
+        chart.update();
+      }
+
+      // Initial chart update
+      updateChart();
+    </script>
+  </body>
+</html>

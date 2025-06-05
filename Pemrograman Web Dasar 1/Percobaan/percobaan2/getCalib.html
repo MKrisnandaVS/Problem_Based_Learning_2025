@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Calibration Constant</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+
+      form {
+        margin: 20px 0;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #34495e;
+      }
+
+      input[type="text"] {
+        padding: 8px;
+        width: 200px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 15px;
+      }
+
+      input[type="submit"] {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #2980b9;
+      }
+
+      #lastModified {
+        color: #7f8c8d;
+        font-size: 0.9em;
+        margin-bottom: 20px;
+      }
+
+      .result-table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .result-table th,
+      .result-table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+
+      .result-table th {
+        background-color: #f8f9fa;
+      }
+
+      .header-row {
+        background-color: #eee;
+        font-weight: bold;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("lastModified").textContent =
+          "This document was last modified on " + document.lastModified;
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Get Calibration Constants for Water Vapor Instrument</h2>
+      <p id="lastModified"></p>
+      <form method="post" action="getCalib.php">
+        <label for="SN">Enter Serial Number:</label>
+        <input type="text" id="SN" name="SN" value="WV2-157" required />
+        <br />
+        <input
+          type="submit"
+          value="Click here to get calibration constants..."
+        />
+      </form>
+      <div id="result"></div>
+    </div>
+  </body>
+</html>

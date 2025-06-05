@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <div id="chart" style="width: 600px; height: 400px"></div>
+
+    <!--[if lt IE 9]><script src="js/excanvas.min.js"></script><![endif]-->
+    <script src="js/flotr2.min.js"></script>
+    <script>
+      window.onload = function () {
+        var co2 = [
+          [1959, 315.97],
+          [1960, 316.91],
+          [1961, 317.64],
+          [1962, 318.29],
+          [1963, 318.99],
+          [1964, 320.04],
+          [1965, 321.38],
+          [1966, 322.16],
+          [1967, 322.34],
+          [1968, 323.04],
+          [1969, 324.62],
+          [1970, 325.68],
+          [1971, 327.45],
+          [1972, 329.68],
+          [1973, 330.18],
+          [1974, 331.11],
+          [1975, 332.05],
+          [1976, 333.85],
+          [1977, 336.41],
+          [1978, 336.78],
+          [1979, 338.68],
+          [1980, 338.68],
+        ];
+
+        var temp = [
+          [1959, 0.0776],
+          [1960, 0.028],
+          [1961, 0.1028],
+          [1962, 0.1289],
+          [1963, 0.1469],
+          [1964, 0.0523],
+          [1965, 0.0963],
+          [1966, 0.0552],
+          [1967, 0.0217],
+          [1968, 0.0672],
+          [1969, 0.075],
+          [1970, 0.0217],
+          [1971, 0.0317],
+          [1972, 0.0917],
+          [1973, 0.0752],
+          [1974, 0.0297],
+          [1975, 0.1856],
+          [1976, 0.2301],
+        ];
+
+        var zero = [];
+        for (yr = 1959; yr < 2012; yr++) {
+          zero.push([yr, 0]);
+        }
+
+        Flotr.draw(
+          document.getElementById("chart"),
+          [
+            {
+              data: zero,
+              label: "20<sup>th</sup> Century Baseline Temperature",
+              lines: { show: true, lineWidth: 1 },
+              shadowSize: 0,
+              color: "#545454",
+            },
+            {
+              data: temp,
+              label: "Yearly Temperature Difference (°C)",
+              lines: { show: true },
+            },
+            {
+              data: co2,
+              label: "CO<sub>2</sub> Concentration (ppm)",
+              lines: { show: true },
+              yaxis: 2,
+            },
+          ],
+          {
+            title:
+              "Global Temperature and CO<sub>2</sub> Concentration (NOAA Data)",
+            grid: { horizontalLines: false, verticalLines: false },
+            xaxis: { min: 300, max: 400 },
+            yaxis: {
+              min: -0.15,
+              max: 0.69,
+              tickFormatter: function (val) {
+                return val + "°C";
+              },
+            },
+          },
+        );
+      };
+    </script>
+  </body>
+</html>

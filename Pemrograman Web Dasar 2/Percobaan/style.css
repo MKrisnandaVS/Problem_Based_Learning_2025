@@ -1,0 +1,89 @@
+/* Reset default margin dan padding */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Styling untuk header */
+header {
+  background-color: #eb8716;
+  color: #fff;
+  width: 98%;
+  height: 150px;
+  margin: 1% auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+}
+
+header h1 {
+  font-size: 40px;
+  margin: 0;
+}
+
+/* Styling untuk wrapper */
+.wrapper {
+  background-color: #90cee8;
+  width: 98%;
+  min-height: 300px;
+  margin: 1% auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  gap: 20px; /* Memberi jarak antar elemen */
+}
+
+/* Styling untuk setiap halaman */
+.page {
+  width: 180px;
+  height: 180px;
+  background-color: #006f9e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.page:hover {
+  transform: scale(1.05);
+}
+
+/* Styling untuk gambar */
+.page img {
+  width: 80%;
+  height: auto;
+  border-radius: 5px;
+  transition: filter 0.3s ease-in-out;
+}
+
+.page img:hover {
+  filter: grayscale(70%);
+}
+
+/* Styling untuk footer */
+footer {
+  background-color: #006f9e;
+  color: #fff;
+  width: 98%;
+  height: 60px;
+  margin: 1% auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+footer p {
+  font-size: 14px;
+  margin: 0;
+}
