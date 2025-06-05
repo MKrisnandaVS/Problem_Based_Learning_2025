@@ -1,0 +1,460 @@
+<!-- sections/screening.html -->
+<div class="screening-container flex h-full">
+  <!-- Filter Sidebar (Left) -->
+  <aside
+    class="filter-sidebar w-72 bg-white p-6 shadow-md rounded-lg flex flex-col"
+  >
+    <h3 class="text-xl font-semibold text-gray-800 mb-6">
+      Stock Screener Filters
+    </h3>
+    <div class="overflow-y-auto flex-grow pr-2 -mr-2 scrollbar-custom">
+      <!-- Search by Ticker -->
+      <div
+        class="filter-group mb-6 p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md"
+      >
+        <label
+          for="ticker-filter"
+          class="block text-gray-700 text-sm font-medium mb-2"
+          >Search by Ticker:</label
+        >
+        <input
+          type="text"
+          id="ticker-filter"
+          placeholder="e.g., AAPL"
+          class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+        />
+      </div>
+
+      <!-- General Filters -->
+      <div
+        class="filter-group mb-6 p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md"
+      >
+        <h4 class="text-md font-semibold text-gray-800 mb-3">General</h4>
+        <div class="mb-4">
+          <label
+            for="sector-filter"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Sector:</label
+          >
+          <select
+            id="sector-filter"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          >
+            <option value="">All Sectors</option>
+            <!-- Sectors will be populated by JS -->
+          </select>
+        </div>
+        <div class="mb-4">
+          <label
+            for="min-market-cap"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Market Cap (Bn USD):</label
+          >
+          <input
+            type="number"
+            id="min-market-cap"
+            min="0"
+            step="1"
+            placeholder="e.g., 100"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="max-market-cap"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Max Market Cap (Bn USD):</label
+          >
+          <input
+            type="number"
+            id="max-market-cap"
+            min="0"
+            step="1"
+            placeholder="e.g., 500"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+      </div>
+
+      <!-- Valuation Filters -->
+      <div
+        class="filter-group mb-6 p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md"
+      >
+        <h4 class="text-md font-semibold text-gray-800 mb-3">Valuation</h4>
+        <div class="mb-4">
+          <label
+            for="max-trailing-pe"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Max Trailing P/E:</label
+          >
+          <input
+            type="number"
+            id="max-trailing-pe"
+            min="0"
+            step="0.1"
+            placeholder="e.g., 20"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="max-forward-pe"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Max Forward P/E:</label
+          >
+          <input
+            type="number"
+            id="max-forward-pe"
+            min="0"
+            step="0.1"
+            placeholder="e.g., 18"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="max-pb"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Max Price-to-Book:</label
+          >
+          <input
+            type="number"
+            id="max-pb"
+            min="0"
+            step="0.01"
+            placeholder="e.g., 2.5"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="max-ps"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Max Price-to-Sales:</label
+          >
+          <input
+            type="number"
+            id="max-ps"
+            min="0"
+            step="0.01"
+            placeholder="e.g., 3.0"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="min-trailing-eps"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Trailing EPS:</label
+          >
+          <input
+            type="number"
+            id="min-trailing-eps"
+            step="0.01"
+            placeholder="e.g., 1.5"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+      </div>
+
+      <!-- Dividend Filters -->
+      <div
+        class="filter-group mb-6 p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md"
+      >
+        <h4 class="text-md font-semibold text-gray-800 mb-3">Dividend</h4>
+        <div class="mb-4">
+          <label
+            for="min-dividend-yield"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Dividend Yield (%):</label
+          >
+          <input
+            type="number"
+            id="min-dividend-yield"
+            min="0"
+            step="0.01"
+            placeholder="e.g., 0.02"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="max-payout-ratio"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Max Payout Ratio (%):</label
+          >
+          <input
+            type="number"
+            id="max-payout-ratio"
+            min="0"
+            max="1"
+            step="0.01"
+            placeholder="e.g., 0.6"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+      </div>
+
+      <!-- Profitability Filters -->
+      <div
+        class="filter-group mb-6 p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md"
+      >
+        <h4 class="text-md font-semibold text-gray-800 mb-3">Profitability</h4>
+        <div class="mb-4">
+          <label
+            for="min-profit-margins"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Profit Margins (%):</label
+          >
+          <input
+            type="number"
+            id="min-profit-margins"
+            step="0.01"
+            placeholder="e.g., 0.1"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="min-gross-margins"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Gross Margins (%):</label
+          >
+          <input
+            type="number"
+            id="min-gross-margins"
+            step="0.01"
+            placeholder="e.g., 0.2"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="min-operating-margins"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Operating Margins (%):</label
+          >
+          <input
+            type="number"
+            id="min-operating-margins"
+            step="0.01"
+            placeholder="e.g., 0.15"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="min-roe"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Return on Equity (%):</label
+          >
+          <input
+            type="number"
+            id="min-roe"
+            step="0.01"
+            placeholder="e.g., 0.15"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="min-roa"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Return on Assets (%):</label
+          >
+          <input
+            type="number"
+            id="min-roa"
+            step="0.01"
+            placeholder="e.g., 0.05"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+      </div>
+
+      <!-- Growth Filters -->
+      <div
+        class="filter-group mb-6 p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md"
+      >
+        <h4 class="text-md font-semibold text-gray-800 mb-3">Growth</h4>
+        <div class="mb-4">
+          <label
+            for="min-revenue-growth"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Revenue Growth (%):</label
+          >
+          <input
+            type="number"
+            id="min-revenue-growth"
+            step="0.01"
+            placeholder="e.g., 0.1"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="min-earnings-growth"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Earnings Growth (%):</label
+          >
+          <input
+            type="number"
+            id="min-earnings-growth"
+            step="0.01"
+            placeholder="e.g., 0.05"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="min-earnings-quarterly-growth"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Quarterly Earnings Growth (%):</label
+          >
+          <input
+            type="number"
+            id="min-earnings-quarterly-growth"
+            step="0.01"
+            placeholder="e.g., 0.02"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+      </div>
+
+      <!-- Liquidity & Debt Filters -->
+      <div
+        class="filter-group mb-6 p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md"
+      >
+        <h4 class="text-md font-semibold text-gray-800 mb-3">
+          Liquidity & Debt
+        </h4>
+        <div class="mb-4">
+          <label
+            for="min-current-ratio"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Min Current Ratio:</label
+          >
+          <input
+            type="number"
+            id="min-current-ratio"
+            min="0"
+            step="0.01"
+            placeholder="e.g., 1.5"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="max-debt-to-equity"
+            class="block text-gray-700 text-sm font-medium mb-2"
+            >Max Debt-to-Equity:</label
+          >
+          <input
+            type="number"
+            id="max-debt-to-equity"
+            min="0"
+            step="0.01"
+            placeholder="e.g., 1.0"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="mt-auto pt-4 border-t border-gray-200 flex space-x-2">
+      <button
+        id="apply-filters-btn"
+        class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out font-medium shadow-md"
+      >
+        Apply Filters
+      </button>
+      <button
+        id="reset-filters-btn"
+        class="flex-1 bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors duration-300 ease-in-out font-medium shadow-md"
+      >
+        Reset
+      </button>
+    </div>
+  </aside>
+
+  <!-- Results Area (Right) -->
+  <div class="results-area flex-1 p-6 bg-gray-50 overflow-y-auto">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+      Screening Results (<span id="results-count">0</span> Stocks)
+    </h3>
+
+    <div
+      id="screener-results-container"
+      class="bg-white rounded-lg shadow-lg overflow-hidden"
+    >
+      <div
+        class="scrollable-table-container min-h-[400px] max-h-[calc(100vh-200px)]"
+      >
+        <table class="w-full table-auto text-sm text-left text-gray-700">
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-100 sticky-header"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">Ticker</th>
+              <th scope="col" class="px-6 py-3">Company Name</th>
+              <th scope="col" class="px-6 py-3">Sector</th>
+              <th scope="col" class="px-6 py-3">Market Cap</th>
+              <th scope="col" class="px-6 py-3">Trailing P/E</th>
+              <th scope="col" class="px-6 py-3">Forward P/E</th>
+              <th scope="col" class="px-6 py-3">P/B</th>
+              <th scope="col" class="px-6 py-3">P/S</th>
+              <th scope="col" class="px-6 py-3">Div. Yield</th>
+              <th scope="col" class="px-6 py-3">Payout Ratio</th>
+              <th scope="col" class="px-6 py-3">Profit Margins</th>
+              <th scope="col" class="px-6 py-3">Gross Margins</th>
+              <th scope="col" class="px-6 py-3">Operating Margins</th>
+              <th scope="col" class="px-6 py-3">ROE</th>
+              <th scope="col" class="px-6 py-3">ROA</th>
+              <th scope="col" class="px-6 py-3">Revenue Growth</th>
+              <th scope="col" class="px-6 py-3">Earnings Growth</th>
+              <th scope="col" class="px-6 py-3">Qtrly Earnings Growth</th>
+              <th scope="col" class="px-6 py-3">Current Ratio</th>
+              <th scope="col" class="px-6 py-3">Debt/Equity</th>
+              <th scope="col" class="px-6 py-3">Trailing EPS</th>
+            </tr>
+          </thead>
+          <tbody id="screener-results-body">
+            <!-- Results will be loaded here by JS -->
+            <tr>
+              <td colspan="21" class="text-center py-4 text-gray-500">
+                Apply filters to see results.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          id="no-results-message"
+          class="hidden text-center py-8 text-gray-500 text-lg"
+        >
+          <i class="fas fa-box-open text-4xl mb-3"></i>
+          <p>No stocks found matching your criteria.</p>
+          <p class="text-sm mt-1">Try adjusting your filters.</p>
+        </div>
+      </div>
+      <div
+        class="pagination-controls flex justify-between items-center px-6 py-3 bg-gray-100 border-t border-gray-200"
+      >
+        <span class="pagination-info text-gray-600" id="pagination-info"></span>
+        <div class="pagination-buttons space-x-2">
+          <button id="prev-page-btn" class="pagination-btn" disabled>
+            <i class="fas fa-chevron-left mr-1"></i> Previous
+          </button>
+          <button id="next-page-btn" class="pagination-btn">
+            <i class="fas fa-chevron-right ml-1"></i> Next
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="loading-results" class="hidden text-center py-8">
+      <div
+        class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 mx-auto"
+      ></div>
+      <p class="text-gray-500 mt-3">Loading stocks...</p>
+    </div>
+  </div>
+</div>

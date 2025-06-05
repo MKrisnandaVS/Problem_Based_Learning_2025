@@ -1,0 +1,63 @@
+/* css/clustering.css */
+.tab-active {
+    border-bottom: 2px solid #4f46e5; /* Indigo-600 */
+    color: #4f46e5; /* Indigo-600 */
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.sortable:hover { 
+    cursor: pointer; 
+    background-color: #f3f4f6; /* Gray-100 */ 
+}
+.sort-indicator { 
+    margin-left: 5px; 
+    font-size: 0.8em; 
+    color: #6b7280; /* Gray-500 */ 
+}
+
+.chart-container { 
+    min-height: 450px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+.bar-chart-container { 
+    min-height: 300px; /* Adjusted for potentially smaller bar charts */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+.bar-chart-container img { 
+    max-width: 100%; 
+    height: auto; 
+    margin: 0 auto; 
+    display: block; 
+}
+
+/* Animasi pulse untuk status loading (jika belum ada secara global) */
+.animate-pulse { 
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; 
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
+
+/* Tambahkan ini jika Anda ingin memastikan container plot memiliki tinggi minimum saat kosong (jika style.css belum menangani) */
+.chart-container:empty::before {
+    content: "Memuat grafik...";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px; /* Atau tinggi default plot Anda */
+    color: #6b7280; /* Gray-500 */
+}
+.bar-chart-container:empty::before {
+    content: "Memuat grafik batang...";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Atau tinggi default plot Anda */
+    color: #6b7280; /* Gray-500 */
+}

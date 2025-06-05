@@ -1,0 +1,158 @@
+<!-- forecasting.html -->
+<div class="forecasting-container p-6 bg-white rounded-lg shadow-xl">
+  <!-- <h2 class="text-3xl font-bold text-gray-800 mb-6">Stock Forecasting</h2>
+  <p class="text-gray-600 mb-8">
+    Predict future stock prices using advanced LSTM models based on real-time
+    data from YFinance and technical analysis indicators.
+  </p> -->
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Input Section -->
+    <div class="input-card card p-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">
+        Enter Stock Details
+      </h3>
+      <div class="mb-4">
+        <label
+          for="forecast-ticker"
+          class="block text-gray-700 text-sm font-bold mb-2"
+          >Stock Ticker (e.g., MDKA, BBCA.JK)</label
+        >
+        <input
+          type="text"
+          id="forecast-ticker"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+          placeholder="e.g., MDKA.JK"
+          required
+        />
+      </div>
+      <div class="mb-6">
+        <label
+          for="forecast-timeframe"
+          class="block text-gray-700 text-sm font-bold mb-2"
+          >Select Timeframe</label
+        >
+        <select
+          id="forecast-timeframe"
+          class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+          required
+        >
+          <option value="">Loading timeframes...</option>
+        </select>
+      </div>
+      <button
+        id="run-forecast-btn"
+        class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 w-full flex items-center justify-center space-x-2"
+      >
+        <i class="fas fa-magic"></i>
+        <span>Run Forecast</span>
+      </button>
+      <div id="forecast-loading" class="loading mt-4 active">
+        <div
+          class="bg-white p-3 rounded-lg shadow-sm flex items-center space-x-2 text-gray-600"
+        >
+          <div
+            class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"
+          ></div>
+          <span>Fetching available models...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics Display -->
+    <div
+      class="metrics-card card p-6 tech-gradient text-white flex flex-col justify-center"
+    >
+      <h3 class="text-xl font-semibold mb-4">Model Evaluation Metrics</h3>
+      <p class="text-sm opacity-90 mb-4">
+        These metrics indicate the general performance of the trained model on
+        historical test data, not the accuracy of future predictions which are
+        yet to materialize.
+      </p>
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <div>
+          <p class="text-3xl font-bold" id="metric-mae">--</p>
+          <p class="text-sm opacity-80">MAE</p>
+        </div>
+        <div>
+          <p class="text-3xl font-bold" id="metric-mse">--</p>
+          <p class="text-sm opacity-80">MSE</p>
+        </div>
+        <div>
+          <p class="text-3xl font-bold" id="metric-mape">--</p>
+          <p class="text-sm opacity-80">MAPE</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div id="forecast-results" class="hidden">
+    <div id="forecast-message" class="hidden p-4 rounded-lg mt-4"></div>
+
+    <div class="chart-card card p-6 mb-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">
+        Price Forecast (<span id="forecast-ticker-display">--</span> -
+        <span id="forecast-timeframe-display">--</span>)
+      </h3>
+      <div class="chart-container-forecast">
+        <canvas id="forecastChart"></canvas>
+      </div>
+    </div>
+
+    <div class="prediction-details-card card p-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">Forecast Details</h3>
+      <table class="min-w-full bg-white rounded-lg overflow-hidden">
+        <thead class="bg-gray-100 border-b border-gray-200">
+          <tr>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Horizon
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Predicted Price
+            </th>
+          </tr>
+        </thead>
+        <tbody id="prediction-table-body" class="divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              t+1 (Next Period)
+            </td>
+            <td
+              id="pred-h1"
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium"
+            >
+              --
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              t+2
+            </td>
+            <td
+              id="pred-h2"
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium"
+            >
+              --
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              t+3
+            </td>
+            <td
+              id="pred-h3"
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium"
+            >
+              --
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

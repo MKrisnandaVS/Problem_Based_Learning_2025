@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Stock Analytics Platform</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link href="./css/style.css" rel="stylesheet" />
+    <link href="./css/style_chatbot.css" rel="stylesheet" />
+    <link href="./css/clustering.css" rel="stylesheet" /> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</head>
+<body class="bg-gray-50">
+  <div class="flex h-screen">
+    <div class="sidebar w-64 text-white p-6 flex flex-col">
+      <div class="mb-8 flex flex-col items-center">
+        <img src="images/logo.png" alt="Logo" class="w-20 h-auto mb-2" />
+        <h1 class="text-2xl font-bold">InvesTree</h1>
+        <p class="text-sm opacity-75">Advanced Platform </p>
+      </div>
+
+        <nav class="space-y-2">
+          <a
+            href="#"
+            onclick="showSection('home')"
+            class="sidebar-item active flex items-center space-x-3 p-3 rounded-lg"
+            data-tooltip="View a summary of market performance and individual stock data."
+          >
+            <i class="fas fa-home"></i>
+            <span>Home Dashboard</span>
+          </a>
+          <a
+            href="#"
+            onclick="showSection('clustering')"
+            class="sidebar-item flex items-center space-x-3 p-3 rounded-lg"
+            data-tooltip="Group similar stocks based on financial characteristics."
+          >
+            <i class="fas fa-project-diagram"></i>
+            <span>Stock Clustering</span>
+          </a>
+          <a
+            href="#"
+            onclick="showSection('forecasting')"
+            class="sidebar-item flex items-center space-x-3 p-3 rounded-lg"
+            data-tooltip="Predict future stock prices using advanced models."
+          >
+            <i class="fas fa-chart-line"></i>
+            <span>Stock Forecasting</span>
+          </a>
+          <a
+            href="#"
+            onclick="showSection('screening')"
+            class="sidebar-item flex items-center space-x-3 p-3 rounded-lg"
+            data-tooltip="Find stocks that match your specific investment criteria."
+          >
+            <i class="fas fa-filter-circle-dollar"></i>
+            <span>Stock Screening</span>
+          </a>
+        </nav>
+
+        <div class="mt-auto pt-8">
+          <div class="bg-white bg-opacity-10 rounded-lg p-4">
+            <p class="text-sm">API Status</p>
+            <p class="text-lg font-bold" id="api-status">🔴 Checking...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-auto">
+        <header class="bg-white shadow-sm border-b p-6">
+          <div class="flex justify-between items-center">
+            <div>
+              <h2 id="page-title" class="text-2xl font-bold text-gray-800">
+                Home Dashboard
+              </h2>
+              <p class="text-gray-600">
+                Stock market insights and analytics
+              </p>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="relative">
+                <input
+                  type="text"
+                  id="ticker-search"
+                  placeholder="Search stocks (e.g., AAPL)..."
+                  class="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+                <i
+                  class="fas fa-search absolute left-3 top-3 text-gray-400"
+                ></i>
+              </div>
+              <button
+                id="refresh-button"
+                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                <i class="fas fa-sync-alt mr-2"></i>Enter
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <main id="content-container" class="p-6"></main>
+      </div>
+    </div>
+
+    <div
+      id="loading"
+      class="loading fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="flex items-center space-x-3">
+          <div
+            class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"
+          ></div>
+          <span>Loading data...</span>
+        </div>
+      </div>
+    </div>
+
+    <button id="chat-toggle-button" class="chat-toggle-button">
+      <i class="fas fa-comments"></i>
+    </button>
+
+    <div id="chatbot-popup" class="chat-container popup">
+      <div class="chat-header">
+        <span>Gemini Assistant 🤖</span>
+        <button id="close-chat-button" class="close-chat-button">
+          ×
+        </button>
+      </div>
+      <div id="chatBox" class="chat-box">
+        <div class="chat-message bot">Halo! Ada yang bisa saya bantu?</div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="userInput" placeholder="Ketik pesan Anda..." />
+        <button id="sendButton"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+    <script type="module" src="./js/core.js"></script>
+    <script src="./js/chatbot_gemini.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleButton = document.getElementById("chat-toggle-button");
+        const chatbotPopup = document.getElementById("chatbot-popup");
+        const closeButton = document.getElementById("close-chat-button");
+
+        toggleButton.addEventListener("click", () => {
+          chatbotPopup.classList.toggle("show");
+          // Optional: Ganti ikon saat dibuka/ditutup
+          const icon = toggleButton.querySelector("i");
+          if (chatbotPopup.classList.contains("show")) {
+            icon.classList.remove("fa-comments");
+            icon.classList.add("fa-times"); // Ikon silang saat terbuka
+          } else {
+            icon.classList.remove("fa-times");
+            icon.classList.add("fa-comments"); // Ikon chat saat tertutup
+          }
+        });
+
+        closeButton.addEventListener("click", () => {
+          chatbotPopup.classList.remove("show");
+          const icon = toggleButton.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-comments");
+        });
+      });
+    </script>
+  </body>
+</html>

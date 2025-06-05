@@ -1,0 +1,155 @@
+<!-- <div id="connection-status" class="mb-6"></div> -->
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+  <div class="card metric-card p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm opacity-75">Market Cap</p>
+        <p class="text-2xl font-bold" id="market-cap-display">Rp 0</p>
+      </div>
+      <i class="fas fa-chart-bar text-3xl opacity-75"></i>
+    </div>
+  </div>
+  <div class="card tech-gradient text-white p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm opacity-75">Current Price</p>
+        <p class="text-2xl font-bold" id="current-price-display">Rp 0,00</p>
+      </div>
+      <i class="fas fa-rupiah-sign text-3xl opacity-75"></i>
+    </div>
+  </div>
+  <div class="card success-gradient text-white p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm opacity-75">P/E Ratio</p>
+        <p class="text-2xl font-bold" id="pe-ratio-display">0.0</p>
+      </div>
+      <i class="fas fa-percentage text-3xl opacity-75"></i>
+    </div>
+  </div>
+  <div class="card warning-gradient text-white p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm opacity-75">Volume</p>
+        <p class="text-2xl font-bold" id="volume-display">0</p>
+      </div>
+      <i class="fas fa-exchange-alt text-3xl opacity-75"></i>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+  <div class="card p-6">
+    <h3 class="text-xl font-bold mb-4">📊 Price Chart</h3>
+    <div class="chart-container">
+      <canvas id="price-chart"></canvas> </div>
+  </div>
+  <div class="card p-6">
+    <h3 class="text-xl font-bold mb-4">📈 Volume Analysis</h3>
+    <div class="chart-container">
+      <canvas id="volume-chart"></canvas> </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+  <div class="card p-6">
+    <h3 class="text-xl font-bold mb-4">🏢 Company Info</h3>
+    <div id="company-info">
+      <p class="text-gray-500">
+        Enter a ticker symbol to view company information
+      </p>
+    </div>
+  </div>
+  <div class="card p-6">
+    <h3 class="text-xl font-bold mb-4">💰 Financial Metrics</h3>
+    <div id="financial-metrics">
+      <p class="text-gray-500">Financial data will appear here</p>
+    </div>
+  </div>
+  <div class="card p-6">
+    <h3 class="text-xl font-bold mb-4">📊 Valuation</h3>
+    <div id="valuation-metrics">
+      <p class="text-gray-500">Valuation metrics will appear here</p>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+  <div class="card p-6">
+    <h3 class="text-xl font-bold mb-4">📈 Growth Metrics</h3>
+    <div id="growth-metrics">
+      <p class="text-gray-500">Growth data will appear here</p>
+    </div>
+  </div>
+  <div class="card p-6">
+    <h3 class="text-xl font-bold mb-4">💼 Profitability & Liquidity</h3>
+    <div id="profitability-liquidity">
+      <p class="text-gray-500">Profitability & liquidity data will appear here</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="p-6 border-b border-gray-200">
+    <div class="flex justify-between items-center">
+      <h3 class="text-xl font-bold">📋 Recent Price Data</h3>
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-2">
+          <label for="rows-per-page" class="text-sm text-gray-600">Rows per page:</label>
+          <select id="rows-per-page" class="border rounded px-2 py-1 text-sm">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scrollable-table-container" id="price-table-container">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="sticky-header">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Open</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">High</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Low</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Close</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Volume</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change %</th>
+        </tr>
+      </thead>
+      <tbody id="price-table-body" class="bg-white divide-y divide-gray-200">
+        <tr>
+          <td colspan="7" class="px-6 py-4 text-sm text-gray-500 text-center">
+            Enter a ticker to view price data
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination-controls">
+    <div class="flex justify-between items-center w-full">
+      <div class="pagination-info">
+        <span id="pagination-info">Showing 0 of 0 entries</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <div class="pagination-buttons">
+          <button id="prev-btn" class="pagination-btn" disabled>
+            <i class="fas fa-chevron-left mr-1"></i>Previous
+          </button>
+          <span id="page-info" class="px-3 py-2 text-sm text-gray-600">Page 1 of 1</span>
+          <button id="next-btn" class="pagination-btn" disabled>
+            Next<i class="fas fa-chevron-right ml-1"></i>
+          </button>
+        </div>
+        <!-- <button id="load-more-btn" class="load-more-btn" style="display: none;">
+          <i class="fas fa-plus mr-2"></i>Load More Data -->
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
