@@ -1,0 +1,13 @@
+# Ignore Python virtual environment
+.venv/
+
+# Ignore .env file (credentials) - handle via docker run --env-file or -e
+.env
+
+# Ignore Python cache directories and compiled files
+__pycache__/
+*.pyc
+
+# Optional: Ignore common development files you don't need in Docker
+.git/
+.gitignore
